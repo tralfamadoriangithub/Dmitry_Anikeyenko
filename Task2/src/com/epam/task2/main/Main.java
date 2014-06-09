@@ -17,8 +17,13 @@ public class Main {
 		String uniqueWord = ProgrammingBookUtil.findUniqueWord( book );
 		System.out.println( "Unique word : " + uniqueWord );
 
+		System.out.println( "***********************************" );
+		System.out.println( book.getBookText() );
+
+		System.out.println( "***********************************" );
 		ProgrammingBookUtil.swapWords( book );
 		System.out.println( book.getBookText() );
+
 	}
 
 }
