@@ -5,23 +5,21 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import com.epam.task2.entity.ProgrammingBook;
 import com.epam.task2.entity.Sentence;
-import com.epam.task2.parser.ProgrammingBookParser;
+import com.epam.task2.entity.Text;
 
 public class ProgrammingBookUtil {
 
-	public static ProgrammingBook getProgrammingBook( String path ) {
-		ProgrammingBook book = new ProgrammingBook();
-		ProgrammingBookParser parser = new ProgrammingBookParser( book );
-		parser.parseTextFile( path );
-		return book;
-	}
-
 	public static String findMaxPalindrom( ProgrammingBook book ) {
+
+		if ( book == null ) {
+			return null;
+		}
 
 		String maxPalindrom = "";
 
@@ -46,6 +44,10 @@ public class ProgrammingBookUtil {
 	}
 
 	public static String findUniqueWord( ProgrammingBook book ) {
+
+		if ( book == null ) {
+			return null;
+		}
 
 		String uniqueWord = "";
 
@@ -76,15 +78,33 @@ public class ProgrammingBookUtil {
 	}
 
 	public static void swapWords( ProgrammingBook book ) {
-		HashMap<Integer, Sentence> sentences = book.getSentences();
-		Set<Map.Entry<Integer, Sentence>> entrySet = sentences.entrySet();
-		Iterator<Entry<Integer, Sentence>> iterator = entrySet.iterator();
-		while ( iterator.hasNext() ) {
-			Map.Entry<Integer, Sentence> entry = iterator.next();
-			Sentence sentence = entry.getValue();
-			String str = sentence.getText();
-			sentence.setText( swap( str ) );
+
+		if ( book != null ) {
+
+			HashMap<Integer, Sentence> sentences = book.getSentences();
+			Set<Map.Entry<Integer, Sentence>> entrySet = sentences.entrySet();
+			Iterator<Entry<Integer, Sentence>> iterator = entrySet.iterator();
+			while ( iterator.hasNext() ) {
+				Map.Entry<Integer, Sentence> entry = iterator.next();
+				Sentence sentence = entry.getValue();
+				String str = sentence.getText();
+				sentence.setText( swap( str ) );
+			}
 		}
+	}
+
+	public static StringBuilder getBookText( ProgrammingBook book ) {
+
+		if ( book == null ) {
+			return null;
+		}
+		
+		StringBuilder bookText = new StringBuilder();
+		TreeMap<Integer, Text> bookTree = new TreeMap<>();
+		bookTree.putAll( book.getCode() );
+		bookTree.putAll( book.getSentences() );
+		bookTree.forEach( ( a, b ) -> bookText.append( b.getText() ) );
+		return bookText;
 	}
 
 	private static boolean isPolyndrom( String word ) {
@@ -105,7 +125,7 @@ public class ProgrammingBookUtil {
 			lastIndex = sentence.substring( 0, sentence.length() - 1 )
 					.lastIndexOf( " " );
 		}
-		String last = sentence.substring( lastIndex, sentence.length() - 2 );
+		String last = sentence.substring( lastIndex + 1, sentence.length() - 2 );
 		String remain = sentence.substring( sentence.indexOf( " " ),
 				sentence.lastIndexOf( " " ) );
 		return last + remain + " " + first

@@ -41,7 +41,8 @@ public class Text {
 
 	@Override
 	public String toString() {
-		return text;
+		return getClass().getSimpleName() + " [text=" + text + "]";
 	}
 
+	
 }

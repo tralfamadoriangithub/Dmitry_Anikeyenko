@@ -1,7 +1,6 @@
 package com.epam.task2.entity;
 
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class ProgrammingBook {
 
@@ -57,13 +56,44 @@ public class ProgrammingBook {
 		sentenceMap.put( index, sentenceString );
 	}
 
-	public StringBuilder getBookText() {
-		StringBuilder bookText = new StringBuilder();
-		TreeMap<Integer, Text> book = new TreeMap<>();
-		book.putAll( codeMap );
-		book.putAll( sentenceMap );
-		book.forEach( ( a, b ) -> bookText.append( b ) );
-		return bookText;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ( ( codeMap == null ) ? 0 : codeMap.hashCode() );
+		result = prime * result
+				+ ( ( sentenceMap == null ) ? 0 : sentenceMap.hashCode() );
+		return result;
 	}
 
+	@Override
+	public boolean equals( Object obj ) {
+		if ( this == obj )
+			return true;
+		if ( obj == null )
+			return false;
+		if ( getClass() != obj.getClass() )
+			return false;
+		ProgrammingBook other = (ProgrammingBook) obj;
+		if ( codeMap == null ) {
+			if ( other.codeMap != null )
+				return false;
+		} else if ( !codeMap.equals( other.codeMap ) )
+			return false;
+		if ( sentenceMap == null ) {
+			if ( other.sentenceMap != null )
+				return false;
+		} else if ( !sentenceMap.equals( other.sentenceMap ) )
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + " [codeMap=" + codeMap + ", sentenceMap="
+				+ sentenceMap + "]";
+	}
+	
+	
 }

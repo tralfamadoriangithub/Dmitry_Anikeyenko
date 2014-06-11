@@ -76,9 +76,9 @@ public class Sentence extends Text {
 
 	@Override
 	public String toString() {
-		// return "Sentence [words=" + words + ", characters=" + characters +
-		// "]";
-		return super.toString();
+		return getClass().getSimpleName() + " [words=" + words + ", characters=" + characters + "]";
 	}
+
+	
 
 }

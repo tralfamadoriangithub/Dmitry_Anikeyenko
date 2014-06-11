@@ -29,24 +29,31 @@ public class ProgrammingBookParser {
 	private final String WORD_PATTERN = "([\\w]+[\\u0027]?[\\w]+)[\\s.,:;><='()-]+";
 	private final String CHAR_PATTERN = "[.,:;><='()-]";
 
-	// private final String CODE_BLOCK_START1 = ".+\\n+[a-z]";
-	// private final String CODE_BLOCK_END1 = ".*\\u007D\\n+[A-Z0-9]";
-
 	private ArrayList<String> textStringArray;
 	private ProgrammingBook book;
 
 	private Map<Integer, String> plainText;
 
-	public ProgrammingBookParser( ProgrammingBook book ) {
-		this.book = book;
+	public ProgrammingBookParser() {
+		book = new ProgrammingBook();
 	}
 
-	public void parseTextFile( String filePath ) {
-		readFile( filePath );
-		parseForText();
-		parseForCode();
-		parseForSentences();
-		sentenceDissection();
+	public static ProgrammingBook getBookFromFile( String filePath ) {
+		if ( filePath.isEmpty() || "".equals( filePath ) ) {
+			return null;
+		}
+		ProgrammingBookParser parser = new ProgrammingBookParser();
+		parser.readFile( filePath );
+		parser.parseForText();
+		parser.parseForCode();
+		parser.parseForSentences();
+		parser.sentenceDissection();
+		
+		return parser.getBook();
+	}
+	
+	private ProgrammingBook getBook(){
+		return book;
 	}
 
 	private void readFile( String filePath ) {
@@ -81,21 +88,6 @@ public class ProgrammingBookParser {
 		}
 	}
 
-	// private void parseForCode1() {
-	// Pattern codeStartPattern = Pattern.compile(CODE_BLOCK_START1);
-	// Pattern codeEndPattern = Pattern.compile(CODE_BLOCK_END1);
-	//
-	// Matcher codeStartMatcher = codeStartPattern.matcher(text);
-	// Matcher codeEndMatcher = codeEndPattern.matcher(text);
-	//
-	// while (codeStartMatcher.find()) {
-	// if (codeEndMatcher.find()) {
-	// book.setCode(codeStartMatcher.end(), text.substring(
-	// codeStartMatcher.end() - 1, codeEndMatcher.end() - 1));
-	// }
-	// }
-	// }
-
 	private void parseForCode() {
 		Pattern codeStartPattern = Pattern.compile( CODE_BLOCK_START_PATTERN );
 		Pattern codeEndPattern = Pattern.compile( CODE_BLOCK_END_PATTERN );
@@ -128,12 +120,6 @@ public class ProgrammingBookParser {
 			}
 			i++;
 		}
-		// TreeMap<Integer, Text> tm = new TreeMap<>();
-		// tm.putAll(book.getCode());
-		// tm.forEach((a, b) -> {
-		// System.out.print("{" + a + "}");
-		// System.out.print(b);
-		// });
 	}
 
 	private void parseForSentences() {
@@ -158,12 +144,6 @@ public class ProgrammingBookParser {
 			}
 
 		}
-		// TreeMap<Integer, Text> tm = new TreeMap<>();
-		// tm.putAll(book.getSentence());
-		// tm.forEach((a, b) -> {
-		// System.out.print("{" + a + "}");
-		// System.out.println(b);
-		// });
 	}
 
 	private void sentenceDissection() {
