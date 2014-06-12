@@ -6,8 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -15,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.epam.task2.entity.ProgrammingBook;
-import com.epam.task2.entity.Sentence;
 
 public class ProgrammingBookParser {
 
@@ -26,38 +26,35 @@ public class ProgrammingBookParser {
 	private final String PLAIN_TEXT_PATTERN = "^\\s*[A-Z0-9]{1}[.[^\\n]]+[^\\u003B]\\s$";
 	private final String CODE_BLOCK_START_PATTERN = "^[a-z].*";
 	private final String CODE_BLOCK_END_PATTERN = "^\\u007D";
-	private final String WORD_PATTERN = "([\\w]+[\\u0027]?[\\w]+)[\\s.,:;><='()-]+";
-	private final String CHAR_PATTERN = "[.,:;><='()-]";
 
-	private ArrayList<String> textStringArray;
+	private List<String> textStringArray;
 	private ProgrammingBook book;
 
 	private Map<Integer, String> plainText;
 
-	public ProgrammingBookParser() {
+	private ProgrammingBookParser() {
 		book = new ProgrammingBook();
 	}
 
 	public static ProgrammingBook getBookFromFile( String filePath ) {
-		if ( filePath.isEmpty() || "".equals( filePath ) ) {
+		
+		if ( filePath.isEmpty() || filePath == null ) {
 			return null;
 		}
+
 		ProgrammingBookParser parser = new ProgrammingBookParser();
 		parser.readFile( filePath );
 		parser.parseForText();
 		parser.parseForCode();
 		parser.parseForSentences();
-		parser.sentenceDissection();
-		
-		return parser.getBook();
-	}
-	
-	private ProgrammingBook getBook(){
-		return book;
+
+		return parser.book;
 	}
 
 	private void readFile( String filePath ) {
+		
 		textStringArray = new ArrayList<>();
+		
 		try ( BufferedReader reader = new BufferedReader( new FileReader(
 				filePath ) ) ) {
 			String line = reader.readLine();
@@ -71,9 +68,12 @@ public class ProgrammingBookParser {
 	}
 
 	private void parseForText() {
-		plainText = new HashMap<>();
+		
+		plainText = new LinkedHashMap<>();
+		
 		Pattern plainTextPattern = Pattern.compile( PLAIN_TEXT_PATTERN );
 		Matcher plainTextMatcher;
+		
 		int index = 0;
 		for ( String string : textStringArray ) {
 			plainTextMatcher = plainTextPattern.matcher( string );
@@ -123,10 +123,13 @@ public class ProgrammingBookParser {
 	}
 
 	private void parseForSentences() {
+
 		Pattern sentencePattern = Pattern.compile( SENTENCE_PATTERN );
 		Matcher sentenceMatcher;
+		
 		Set<Entry<Integer, String>> entrySet = plainText.entrySet();
 		Iterator<Entry<Integer, String>> iterator = entrySet.iterator();
+		
 		while ( iterator.hasNext() ) {
 			Map.Entry<Integer, String> entry = (Map.Entry<Integer, String>) iterator
 					.next();
@@ -142,41 +145,6 @@ public class ProgrammingBookParser {
 			} else {
 				book.setSentence( index, text );
 			}
-
 		}
 	}
-
-	private void sentenceDissection() {
-		HashMap<Integer, Sentence> sentences = book.getSentences();
-		Set<Entry<Integer, Sentence>> entrySet = sentences.entrySet();
-		Iterator<Entry<Integer, Sentence>> iterator = entrySet.iterator();
-		while ( iterator.hasNext() ) {
-			Map.Entry<Integer, Sentence> entry = iterator.next();
-			Sentence sentence = entry.getValue();
-			String text = sentence.getText();
-			sentence.setWords( parseForWords( text ) );
-			sentence.setCharacters( parseForChars( text ) );
-		}
-	}
-
-	private ArrayList<String> parseForWords( String string ) {
-		ArrayList<String> words = new ArrayList<>();
-		Pattern wordPattern = Pattern.compile( WORD_PATTERN );
-		Matcher wordMatcher = wordPattern.matcher( string );
-		while ( wordMatcher.find() ) {
-			words.add( wordMatcher.group( 1 ) );
-		}
-		return words;
-	}
-
-	private ArrayList<Character> parseForChars( String string ) {
-		ArrayList<Character> chars = new ArrayList<>();
-		Pattern charPattern = Pattern.compile( CHAR_PATTERN );
-		Matcher charMatcher = charPattern.matcher( string );
-		while ( charMatcher.find() ) {
-			chars.add( charMatcher.group().charAt( 0 ) );
-		}
-		return chars;
-	}
-
 }

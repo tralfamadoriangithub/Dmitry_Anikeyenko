@@ -1,59 +1,48 @@
 package com.epam.task2.entity;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ProgrammingBook {
 
-	private HashMap<Integer, Text> codeMap;
-	private HashMap<Integer, Sentence> sentenceMap;
+	private Map<Integer, String> codeMap;
+	private Map<Integer, String> sentenceMap;
 
 	public ProgrammingBook() {
-		codeMap = new HashMap<>();
-		sentenceMap = new HashMap<>();
+		codeMap = new LinkedHashMap<>();
+		sentenceMap = new LinkedHashMap<>();
 	}
 
-	public HashMap<Integer, Text> getCode() {
+	public Map<Integer, String> getCode() {
 		return codeMap;
 	}
 
-	public Text getCode( int index ) {
+	public String getCode( int index ) {
 		return codeMap.get( index );
 	}
 
-	public void setCode( HashMap<Integer, Text> codeMap ) {
+	public void setCode( Map<Integer, String> codeMap ) {
 		this.codeMap = codeMap;
 	}
 
 	public void setCode( int index, String code ) {
-		Text codeText = new Text();
-		codeText.setText( code );
-		codeMap.put( index, codeText );
-	}
-
-	public void setCode( int index, Text code ) {
 		codeMap.put( index, code );
 	}
 
-	public HashMap<Integer, Sentence> getSentences() {
+	public Map<Integer, String> getSentences() {
 		return sentenceMap;
 	}
 
-	public Sentence getSentence( int index ) {
+	public String getSentence( int index ) {
 		return sentenceMap.get( index );
 	}
 
-	public void setSentences( HashMap<Integer, Sentence> sentence ) {
+	public void setSentences( Map<Integer, String> sentence ) {
 		this.sentenceMap = sentence;
 	}
 
-	public void setSentence( int index, Sentence sentence ) {
-		sentenceMap.put( index, sentence );
-	}
-
 	public void setSentence( int index, String sentence ) {
-		Sentence sentenceString = new Sentence();
-		sentenceString.setText( sentence );
-		sentenceMap.put( index, sentenceString );
+		sentenceMap.put( index, sentence );
 	}
 
 	@Override
@@ -91,9 +80,8 @@ public class ProgrammingBook {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " [codeMap=" + codeMap + ", sentenceMap="
-				+ sentenceMap + "]";
+		return getClass().getSimpleName() + " [codeMap=" + codeMap
+				+ ", sentenceMap=" + sentenceMap + "]";
 	}
-	
-	
+
 }

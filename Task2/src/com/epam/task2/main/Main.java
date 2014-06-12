@@ -9,7 +9,7 @@ public class Main {
 	private final static String filePath = "task2text.txt";
 
 	public static void main( String[] args ) {
-		
+
 		ProgrammingBook book = ProgrammingBookParser.getBookFromFile( filePath );
 
 		StringBuilder bookText = ProgrammingBookUtil.getBookText( book );
@@ -17,13 +17,13 @@ public class Main {
 
 		System.out.println( "***********************************" );
 		String palindrom = ProgrammingBookUtil.findMaxPalindrom( book );
-		System.out.println( "Palindrom : " + palindrom );
+		System.out.println( "Max Palindrom : " + palindrom );
 
 		String uniqueWord = ProgrammingBookUtil.findUniqueWord( book );
 		System.out.println( "Unique word : " + uniqueWord );
-		
+
 		System.out.println( "***********************************" );
-		
+
 		ProgrammingBookUtil.swapWords( book );
 		bookText = ProgrammingBookUtil.getBookText( book );
 		System.out.println( bookText );

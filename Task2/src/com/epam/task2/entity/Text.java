@@ -44,5 +44,4 @@ public class Text {
 		return getClass().getSimpleName() + " [text=" + text + "]";
 	}
 
-	
 }
