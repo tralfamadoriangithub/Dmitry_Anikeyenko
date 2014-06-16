@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:planes xmlns:tns="http://www.example.org/planesSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/planesSchema planesSchema.xsd ">
+	
+	<tns:plane>
+		<tns:model nrName="Blackbird">SR-71</tns:model>
+		<tns:origin>USA</tns:origin>
+		<tns:chars>
+			<tns:type>reconnaissance</tns:type>
+			<tns:crew>2</tns:crew>
+			<tns:armament>0</tns:armament>
+			<tns:radar>yes</tns:radar>
+		</tns:chars>
+		<tns:parameters>
+			<tns:length>32.74</tns:length>
+			<tns:width>16.94</tns:width>
+			<tns:height>5.64</tns:height>
+		</tns:parameters>
+		<tns:price>200000000</tns:price>
+	</tns:plane>
+	
+	<tns:plane>
+		<tns:model nrName="Flanker-T">SU-35</tns:model>
+		<tns:origin>Russia</tns:origin>
+		<tns:chars>
+			<tns:type>fighter</tns:type>
+			<tns:crew>1</tns:crew>
+			<tns:armament>10</tns:armament>
+			<tns:radar>yes</tns:radar>
+		</tns:chars>
+		<tns:parameters>
+			<tns:length>22.18</tns:length>
+			<tns:width>14.75</tns:width>
+			<tns:height>6.43</tns:height>
+		</tns:parameters>
+		<tns:price>40000000</tns:price>
+	</tns:plane>
+	
+	<tns:plane>
+		<tns:model nrName="Raptor">F-22</tns:model>
+		<tns:origin>USA</tns:origin>
+		<tns:chars>
+			<tns:type>fighter</tns:type>
+			<tns:crew>1</tns:crew>
+			<tns:armament>8</tns:armament>
+			<tns:radar>yes</tns:radar>
+		</tns:chars>
+		<tns:parameters>
+			<tns:length>18.9</tns:length>
+			<tns:width>13.56</tns:width>
+			<tns:height>5.09</tns:height>
+		</tns:parameters>
+		<tns:price>140000000</tns:price>
+	</tns:plane>
+</tns:planes>

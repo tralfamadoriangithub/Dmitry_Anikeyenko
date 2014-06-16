@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<planes>
+    <plane nrName="Fulcrum">
+        <armament>7</armament>
+        <crew>2</crew>
+        <height>4.73</height>
+        <length>17.32</length>
+        <model>MiG-29</model>
+        <origin>Russia</origin>
+        <type>fighter</type>
+        <price>30.0</price>
+        <radad>yes</radad>
+        <width>11.36</width>
+    </plane>
+</planes>
