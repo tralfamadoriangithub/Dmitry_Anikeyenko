@@ -97,12 +97,6 @@ public class RailwayDispatcher {
 //
 //			return nextTrain;
 //		}
-//		
-//		private boolean trainOK( Train train ){
-//			if(train != null)
-//				return true;
-//			return false;
-//		}
 
 		private Train getTrainFromList(  ) {
 
