@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import com.epam.task3.entity.Tonnel;
 import com.epam.task3.entity.Train;
@@ -33,7 +34,6 @@ public class RailwayDispatcher {
 			tonnelManager = new TonnelManager( tonnel );
 			managers.put( tonnel, tonnelManager );
 			tonnelManager.start();
-
 		}
 	}
 
@@ -82,23 +82,7 @@ public class RailwayDispatcher {
 			}
 		}
 
-//		private Train nextTrain(){
-//			
-//			Train nextTrain = null;
-//			for(int i = 0; i < trainsList.size(); i++){
-//				nextTrain = getTrainFromList( i );
-//				if(trainOK(nextTrain)){
-//					trainsList.remove( i );
-//					break;
-//				}else{
-//					continue;
-//				}
-//			}
-//
-//			return nextTrain;
-//		}
-
-		private Train getTrainFromList(  ) {
+		private Train getTrainFromList() {
 
 			Train train;
 			synchronized ( trainsList ) {
@@ -129,7 +113,31 @@ public class RailwayDispatcher {
 		}
 
 		private void passTrain( Train train ) {
-			executor.execute( train );
+			executor.execute( new Passer( train ) );
+		}
+
+		private class Passer implements Runnable {
+
+			Train train;
+
+			private Passer( Train train ) {
+				this.train = train;
+			}
+
+			@Override
+			public void run() {
+				try {
+					System.out.println( "Train " + train.getTrainName()
+							+ " in " + tonnel.getTonnelName()
+							+ " tonnel, route " + train.getTrainRoute() );
+					TimeUnit.SECONDS.sleep( 5 );
+					System.out.println( "Train " + train.getTrainName()
+							+ " passed " + tonnel.getTonnelName()
+							+ " tonnel, route " + train.getTrainRoute() );
+				} catch ( InterruptedException e ) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

@@ -46,7 +46,7 @@ public class Main {
 				break;
 			}
 			try {
-				TimeUnit.SECONDS.sleep( random.nextInt( 3 ) );
+				TimeUnit.SECONDS.sleep( random.nextInt( 10 ) );
 			} catch ( InterruptedException e ) {
 				e.printStackTrace();
 			}

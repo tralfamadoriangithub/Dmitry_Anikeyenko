@@ -1,8 +1,7 @@
 package com.epam.task3.entity;
 
-import java.util.concurrent.TimeUnit;
 
-public class Train implements Runnable{
+public class Train{
 
 	private String trainName;
 	private Route trainRoute;
@@ -14,15 +13,6 @@ public class Train implements Runnable{
 	public Train( String trainName, Route trainRoute ) {
 		setTrainName( trainName );
 		setTrainRoute( trainRoute );
-	}
-	
-	public void run(){
-		try {
-			TimeUnit.SECONDS.sleep( 5 );
-			System.out.println("Train " + getTrainName() + " passed, route " + getTrainRoute());
-		} catch ( InterruptedException e ) {
-			e.printStackTrace();
-		}
 	}
 
 	public String getTrainName() {
