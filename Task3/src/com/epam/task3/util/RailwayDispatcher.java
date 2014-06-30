@@ -1,5 +1,6 @@
 package com.epam.task3.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -61,14 +62,14 @@ public class RailwayDispatcher {
 
 		private Tonnel tonnel;
 		private LinkedList<Train> trainsList;
-		private Train[] trainsInTonnel;
+		private ArrayList<Train> trainsInTonnel;
 		private volatile boolean run = true;
 		private Executor executor;
 
 		private TonnelManager( Tonnel tonnel ) {
 
 			this.tonnel = tonnel;
-			trainsInTonnel = new Train[tonnel.getMaxTrainsInTonnel()];
+			trainsInTonnel = new ArrayList<>();
 			trainsList = new LinkedList<>();
 			executor = Executors.newFixedThreadPool( tonnel
 					.getMaxTrainsInTonnel() );
@@ -78,15 +79,13 @@ public class RailwayDispatcher {
 		@Override
 		public void run() {
 			while ( run ) {
-				passTrain( getTrainFromList() );
+				handleTrain( getTrainFromList() );
 			}
 		}
 
 		private Train getTrainFromList() {
-
 			Train train;
 			synchronized ( trainsList ) {
-
 				train = trainsList.poll();
 				while ( train == null ) {
 					try {
@@ -98,7 +97,6 @@ public class RailwayDispatcher {
 				}
 			}
 			return train;
-
 		}
 
 		private void setTrainToList( Train newTrain ) {
@@ -112,7 +110,26 @@ public class RailwayDispatcher {
 			}
 		}
 
-		private void passTrain( Train train ) {
+		private void handleTrain( Train train ) {
+			synchronized ( trainsInTonnel ) {
+				if ( trainsInTonnel.isEmpty()
+						|| train.getTrainRoute() == trainsInTonnel.get( 0 )
+								.getTrainRoute() ) {
+					passTrain( train );
+				} else {
+					try {
+						System.out.println("Train " + train.getTrainName() + " waits");
+						trainsInTonnel.wait();
+					} catch ( InterruptedException e ) {
+						e.printStackTrace();
+					}
+					passTrain( train );
+				}
+			}
+		}
+		
+		private void passTrain( Train train ){
+			trainsInTonnel.add( train );
 			executor.execute( new Passer( train ) );
 		}
 
@@ -131,12 +148,19 @@ public class RailwayDispatcher {
 							+ " in " + tonnel.getTonnelName()
 							+ " tonnel, route " + train.getTrainRoute() );
 					TimeUnit.SECONDS.sleep( 5 );
+					synchronized ( trainsInTonnel ) {
+						trainsInTonnel.remove( train );
+						if ( trainsInTonnel.isEmpty() ) {
+							trainsInTonnel.notify();
+						}
+					}
 					System.out.println( "Train " + train.getTrainName()
 							+ " passed " + tonnel.getTonnelName()
 							+ " tonnel, route " + train.getTrainRoute() );
 				} catch ( InterruptedException e ) {
 					e.printStackTrace();
 				}
+
 			}
 		}
 	}
