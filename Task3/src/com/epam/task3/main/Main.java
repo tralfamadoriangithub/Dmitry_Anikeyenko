@@ -32,15 +32,15 @@ public class Main {
 			newTrain = TrainBuilder.buildRandomTrain();
 
 			switch ( random.nextInt( 3 ) ) {
-//			case 0:
-//				dispatcher.addNewTrain( newTrain, firstTonnel );
-//				break;
-//			case 1:
-//				dispatcher.addNewTrain( newTrain, secondTonnel );
-//				break;
-//			case 2:
-//				dispatcher.addNewTrain( newTrain, thirdTonnel );
-//				break;
+			case 0:
+				dispatcher.addNewTrain( newTrain, firstTonnel );
+				break;
+			case 1:
+				dispatcher.addNewTrain( newTrain, secondTonnel );
+				break;
+			case 2:
+				dispatcher.addNewTrain( newTrain, thirdTonnel );
+				break;
 
 			default:
 				dispatcher.addNewTrain( newTrain, firstTonnel );
