@@ -43,7 +43,7 @@ public class DomXMLDao implements XMLDao {
 			throw new XMLDaoException( "Parser exception", e );
 		}
 
-		return list != null ? list : new ArrayList<>();
+		return list;
 
 	}
 
@@ -73,22 +73,20 @@ public class DomXMLDao implements XMLDao {
 					NodeList childNodes = node.getChildNodes();
 
 					for ( int j = 0; j < childNodes.getLength(); j++ ) {
+						
 						Node childNode = childNodes.item( j );
 
 						if ( childNode instanceof Element ) {
-
+							String content = childNode.getTextContent();
 							switch ( childNode.getNodeName() ) {
 							case "model":
-								plane.setModel( childNode.getLastChild()
-										.getTextContent() );
+								plane.setModel( content );
 								break;
 							case "origin":
-								plane.setOrigin( childNode.getLastChild()
-										.getTextContent() );
+								plane.setOrigin( content );
 								break;
 							case "price":
-								plane.setPrice( Double.valueOf( childNode
-										.getLastChild().getTextContent() ) );
+								plane.setPrice( Double.valueOf( content ) );
 								break;
 							case "chars":
 								setChars( plane, childNode );
@@ -101,6 +99,7 @@ public class DomXMLDao implements XMLDao {
 							}
 
 						}
+						
 					}
 					planesList.add( plane );
 				}
@@ -109,25 +108,25 @@ public class DomXMLDao implements XMLDao {
 		}
 
 		private void setChars( Plane plane, Node node ) {
-
 			NodeList nodeList = node.getChildNodes();
 			for ( int i = 0; i < nodeList.getLength(); i++ ) {
 				Node childNode = nodeList.item( i );
 				if ( childNode instanceof Element ) {
-
+					String content = childNode.getLastChild()
+							.getTextContent();
 					switch ( childNode.getNodeName() ) {
 					case "type":
-						plane.setType( childNode.getLastChild()
-								.getTextContent() );
+						plane.setType( content );
+						break;
 					case "crew":
-						plane.setCrew( Integer.valueOf( childNode
-								.getLastChild().getTextContent() ) );
+						plane.setCrew( Integer.valueOf( content ) );
+						break;
 					case "armament":
-						plane.setArmament( Integer.valueOf( childNode
-								.getLastChild().getTextContent() ) );
+						plane.setArmament( Integer.valueOf( content ) );
+						break;
 					case "radar":
-						plane.setHasRadar( childNode.getLastChild()
-								.getTextContent() );
+						plane.setHasRadar( content );
+						break;
 					default:
 						break;
 					}
@@ -142,17 +141,18 @@ public class DomXMLDao implements XMLDao {
 			for ( int i = 0; i < nodeList.getLength(); i++ ) {
 				Node childNode = nodeList.item( i );
 				if ( childNode instanceof Element ) {
-
+					double value = Double.valueOf( childNode
+							.getLastChild().getTextContent() );
 					switch ( childNode.getNodeName() ) {
 					case "length":
-						plane.setLength( Double.valueOf( childNode
-								.getLastChild().getTextContent() ) );
+						plane.setLength( value );
+						break;
 					case "height":
-						plane.setHeight( Double.valueOf( childNode
-								.getLastChild().getTextContent() ) );
+						plane.setHeight( value );
+						break;
 					case "width":
-						plane.setWidth( Double.valueOf( childNode
-								.getLastChild().getTextContent() ) );
+						plane.setWidth( value );
+						break;
 					default:
 						break;
 					}

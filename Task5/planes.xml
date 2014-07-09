@@ -3,53 +3,53 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/planesSchema planesSchema.xsd ">
 	
-	<tns:plane  nrName="Blackbird">
-		<tns:model>SR-71</tns:model>
-		<tns:origin>USA</tns:origin>
-		<tns:chars>
-			<tns:type>reconnaissance</tns:type>
-			<tns:crew>2</tns:crew>
-			<tns:radar>yes</tns:radar>
-		</tns:chars>
-		<tns:parameters>
-			<tns:length>32.74</tns:length>
-			<tns:width>16.94</tns:width>
-			<tns:height>5.64</tns:height>
-		</tns:parameters>
-		<tns:price>200000000</tns:price>
-	</tns:plane>
+	<plane  nrName="Blackbird">
+		<model>SR-71</model>
+		<origin>USA</origin>
+		<chars>
+			<type>reconnaissance</type>
+			<crew>2</crew>
+			<radar>yes</radar>
+		</chars>
+		<parameters>
+			<length>32.74</length>
+			<width>16.94</width>
+			<height>5.64</height>
+		</parameters>
+		<price>200000000</price>
+	</plane>
 	
-	<tns:plane nrName="Flanker-T">
-		<tns:model>SU-35</tns:model>
-		<tns:origin>Russia</tns:origin>
-		<tns:chars>
-			<tns:type>fighter</tns:type>
-			<tns:crew>1</tns:crew>
-			<tns:armament>10</tns:armament>
-			<tns:radar>yes</tns:radar>
-		</tns:chars>
-		<tns:parameters>
-			<tns:length>22.18</tns:length>
-			<tns:width>14.75</tns:width>
-			<tns:height>6.43</tns:height>
-		</tns:parameters>
-		<tns:price>40000000</tns:price>
-	</tns:plane>
+	<plane nrName="Flanker-T">
+		<model>SU-35</model>
+		<origin>Russia</origin>
+		<chars>
+			<type>fighter</type>
+			<crew>1</crew>
+			<armament>10</armament>
+			<radar>yes</radar>
+		</chars>
+		<parameters>
+			<length>22.18</length>
+			<width>14.75</width>
+			<height>6.43</height>
+		</parameters>
+		<price>40000000</price>
+	</plane>
 	
-	<tns:plane nrName="Raptor">
-		<tns:model>F-22</tns:model>
-		<tns:origin>USA</tns:origin>
-		<tns:chars>
-			<tns:type>fighter</tns:type>
-			<tns:crew>1</tns:crew>
-			<tns:armament>8</tns:armament>
-			<tns:radar>yes</tns:radar>
-		</tns:chars>
-		<tns:parameters>
-			<tns:length>18.9</tns:length>
-			<tns:width>13.56</tns:width>
-			<tns:height>5.09</tns:height>
-		</tns:parameters>
-		<tns:price>140000000</tns:price>
-	</tns:plane>
+	<plane nrName="Raptor">
+		<model>F-22</model>
+		<origin>USA</origin>
+		<chars>
+			<type>fighter</type>
+			<crew>1</crew>
+			<armament>8</armament>
+			<radar>yes</radar>
+		</chars>
+		<parameters>
+			<length>18.9</length>
+			<width>13.56</width>
+			<height>5.09</height>
+		</parameters>
+		<price>140000000</price>
+	</plane>
 </tns:planes>

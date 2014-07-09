@@ -58,12 +58,12 @@ public class SaxXMLDao implements XMLDao {
 		private class SaxHandler extends DefaultHandler {
 
 			Plane plane;
-			String tagContent;
+			String tagContent = "";
 
 			@Override
 			public void startElement( String uri, String localName,
 					String qName, Attributes attributes ) throws SAXException {
-				if ( "plane".equals( localName ) ) {
+				if ( "plane".equals( qName ) ) {
 					plane = new Plane();
 					plane.setNrName( attributes.getValue( "nrName" ) );
 				}
@@ -112,7 +112,7 @@ public class SaxXMLDao implements XMLDao {
 			@Override
 			public void characters( char[] ch, int start, int length )
 					throws SAXException {
-				tagContent = String.copyValueOf( ch, start, length );
+				tagContent = new String( ch, start, length );
 			}
 		}
 	}

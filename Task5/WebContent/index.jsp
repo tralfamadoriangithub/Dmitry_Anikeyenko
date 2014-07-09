@@ -14,14 +14,14 @@
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="parse_command" />
 					<input type="hidden" name="parser" value="sax" /> <input
-						type="hidden" name="filename" value="planes.xml" /> <input
+						type="hidden" name="filename" value="C:\Users\dmitry\git\Dmitry_Anikeyenko\Task5\planes.xml" /> <input
 						type="submit" value="SAX" />
 				</form>
 			</td>
 			<td>
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="parse_command" />
-					<input type="hidden" name="filename" value="Task5/planes.xml" /> <input
+					<input type="hidden" name="filename" value="C:\Users\dmitry\git\Dmitry_Anikeyenko\Task5\planes.xml" /> <input
 						type="hidden" name="parser" value="stax" /> <input type="submit"
 						value="StAX" />
 				</form>
@@ -29,7 +29,7 @@
 			<td>
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="parse_command" />
-					<input type="hidden" name="filename" value="planes.xml" /> 
+					<input type="hidden" name="filename" value="C:\Users\dmitry\git\Dmitry_Anikeyenko\Task5\planes.xml" /> 
 					<input type="hidden" name="parser" value="dom" /> 
 						<input type="submit"
 						value="DOM" />

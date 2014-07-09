@@ -1,5 +1,8 @@
 package com.epam.task5.dao.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class StaxXMLDao implements XMLDao {
 		List<Plane> list;
 		try {
 			list = new StaxParser().getListFromFile( resourceName );
-		} catch ( XMLStreamException e ) {
+		} catch ( XMLStreamException | FileNotFoundException e ) {
 			throw new XMLDaoException( "XMLStream exception ", e );
 		}
 
@@ -41,14 +44,13 @@ public class StaxXMLDao implements XMLDao {
 	private class StaxParser {
 
 		private List<Plane> getListFromFile( String resourceName )
-				throws XMLStreamException {
-			List<Plane> planesList = null;
+				throws XMLStreamException, FileNotFoundException {
+			List<Plane> planesList = new ArrayList<>();
 			Plane plane = null;
 			String tagContent = "";
 			XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 			XMLStreamReader reader = xmlInputFactory
-					.createXMLStreamReader( ClassLoader
-							.getSystemResourceAsStream( resourceName ) );
+					.createXMLStreamReader( new FileInputStream( new File( resourceName ) ) );
 
 			String localName = "";
 			while ( reader.hasNext() ) {
@@ -57,7 +59,7 @@ public class StaxXMLDao implements XMLDao {
 				switch ( event ) {
 
 				case XMLStreamConstants.START_DOCUMENT:
-					planesList = new ArrayList<>();
+					//planesList = new ArrayList<>();
 					break;
 
 				case XMLStreamConstants.START_ELEMENT:
@@ -65,7 +67,7 @@ public class StaxXMLDao implements XMLDao {
 					if ( "plane".equals( localName ) ) {
 						plane = new Plane();
 						plane.setNrName( reader.getAttributeValue( 0 ) );
-					} 
+					}
 					break;
 
 				case XMLStreamConstants.CHARACTERS:
